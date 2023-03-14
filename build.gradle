@@ -1,0 +1,29 @@
+apply plugin: 'kotlin'
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "io.freefair.lombok"
+
+
+sourceCompatibility = JavaVersion.VERSION_17
+
+
+group = 'com.music'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
+    maven { url "https://maven.aliyun.com/nexus/content/repositories/gradle-plugin" }
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+
+test {
+    useJUnitPlatform()
+}
