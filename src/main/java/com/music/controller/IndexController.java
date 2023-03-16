@@ -21,4 +21,6 @@ public class IndexController {
     public String index(){
         return "welcome to springboot";
     }
+
+
 }

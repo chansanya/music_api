@@ -1,0 +1,39 @@
+version: "2"
+services:
+  net_api:
+    image: binaryify/netease_cloud_music_api
+    restart: "no"
+    container_name: net_api
+    ports:
+      - 3000:3000
+    networks:
+      api-network:
+        ipv4_address: 172.21.0.2
+  qq_api:
+    image: qq-music-api
+    restart: "no"
+    container_name: qq_api
+    ports:
+      - 3200:3200
+    networks:
+      api-network:
+        ipv4_address: 172.21.0.3
+  console:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: "no"
+    ports:
+      - 81:8080
+    container_name: console
+    depends_on:
+      - qq_api
+    networks:
+      api-network:
+        ipv4_address: 172.21.0.4
+
+networks:
+  api-network:
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
