@@ -1,9 +1,13 @@
 package com.music.http;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
+import org.springframework.web.service.annotation.PostExchange;
 
+import com.music.domain.SongListInfoReqParam;
 import com.music.domain.SongListReqParam;
+import com.music.domain.SongReqParam;
 import com.music.resolvers.FormBody;
 
 /**
@@ -15,7 +19,10 @@ import com.music.resolvers.FormBody;
  *
  * https://c.y.qq.com/rsc/fcgi-bin/fcg_user_created_diss
  *
- * https://u.y.qq.com/cgi-bin/musicu.fcg
+ * https://u.y.qq.com /cgi-bin/musicu.fcg
+ *
+ *
+ * http://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg
  */
 @HttpExchange
 public interface IApiSong {
@@ -30,8 +37,13 @@ public interface IApiSong {
     String songList(@FormBody SongListReqParam songList);
 
 
-    @GetExchange("/cgi-bin/musicu.fcg")
-    String song(String id);
+    @GetExchange(value = "/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg")
+    String songListById(@FormBody SongListInfoReqParam songList);
+
+
+
+    @PostExchange("/cgi-bin/musicu.fcg")
+    String song(@RequestBody  SongReqParam param);
 
 
 }
