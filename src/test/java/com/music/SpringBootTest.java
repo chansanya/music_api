@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 
 import com.music.domain.DomainBuilds;
-import com.music.http.ApiHelper;
-import com.music.http.ApiSong;
+import com.music.http.WebClientHelper;
+import com.music.http.IApiSong;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,13 +26,10 @@ public class SpringBootTest {
 
     @Test
     public void getSongList(){
-        ApiSong api = ApiHelper.getApi("https://c.y.qq.com", ApiSong.class);
-
-//        ApiHelper.getApi("https://u.y.qq.com",ApiSong.class);
+        IApiSong api = WebClientHelper.getApi("https://c.y.qq.com", IApiSong.class);
 
         log.info("开始请求歌单");
         String s = api.songList(DomainBuilds.init());
-//        String s = api.songList();
 
         log.info("得到歌单:{}",s);
     }

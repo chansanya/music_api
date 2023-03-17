@@ -11,8 +11,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class DomainBuilds {
 
-    public static  SongList init(){
-        return  SongList.builder()
+    public static SongListReqParam init(){
+        return  SongListReqParam.builder()
                 .hostuin("984038622")
                 .sin(0)
                 .size(11)

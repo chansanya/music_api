@@ -3,13 +3,13 @@ package com.music.http;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
 
-import com.music.domain.SongList;
+import com.music.domain.SongListReqParam;
 import com.music.resolvers.FormBody;
 
 /**
- * @name: ApiSong
+ * @name: IApiSong
  * @author: leihuangyan
- * @classPath: com.music.http.ApiSong
+ * @classPath: com.music.http.IApiSong
  * @date: 2023/3/17
  * @description:
  *
@@ -18,13 +18,16 @@ import com.music.resolvers.FormBody;
  * https://u.y.qq.com/cgi-bin/musicu.fcg
  */
 @HttpExchange
-public interface ApiSong {
+public interface IApiSong {
 
 
-
-//    @GetExchange("/rsc/fcgi-bin/fcg_user_created_diss")
-    @GetExchange(value = "/rsc/fcgi-bin/fcg_user_created_diss",accept =  {"application/json"})
-    String songList(@FormBody  SongList songList);
+    /**
+     * 得到歌单
+     * @param songList songList
+     * @return QQ音乐返回
+     */
+    @GetExchange(value = "/rsc/fcgi-bin/fcg_user_created_diss")
+    String songList(@FormBody SongListReqParam songList);
 
 
     @GetExchange("/cgi-bin/musicu.fcg")

@@ -8,17 +8,17 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * @name: SongList
+ * @name: SongListReqParam
  * @author: leihuangyan
- * @classPath: com.music.domain.SongList
+ * @classPath: com.music.domain.SongListReqParam
  * @date: 2023/3/17
- * @description:
+ * @description:  歌单请求参数
  */
 @Data
 @Accessors(chain = true)
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SongList {
+public class SongListReqParam {
 
 
     @JsonProperty("hostuin")

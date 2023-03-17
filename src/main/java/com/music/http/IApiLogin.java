@@ -5,15 +5,15 @@ import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
 
 /**
- * @name: Api
+ * @name: IApiLogin
  * @author: leihuangyan
- * @classPath: com.music.http.Api
+ * @classPath: com.music.http.IApiLogin
  * @date: 2023/3/14
  * @description:
  */
 
 @HttpExchange(url = "/login/qr")
-public interface ApiLogin {
+public interface IApiLogin {
 
 
     /**
