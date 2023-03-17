@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.music.enums.WebLoginEnum;
 
 import cn.hutool.json.JSONObject;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class LoginController {
 
-    @Resource
+    @Autowired(required = false)
     ChromeDriver chromeDriver;
 
 

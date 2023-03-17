@@ -4,7 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,15 +17,15 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-public class ApiConfig {
+public class ApiConfig extends WebMvcConfigurationSupport {
 
 
     public ApiConfig() {
-      log.info("初始化。。。");
+      log.info("初始化配置。。。");
     }
 
     // 销毁时关闭谷歌浏览器
-    @Bean(destroyMethod = "quit")
+//    @Bean(destroyMethod = "quit")
     public ChromeDriver chromeDriver() {
         // idea中为了方便则开启这条注释，指定正确的chrome驱动位置
          System.setProperty("webdriver.chrome.driver", "D:/tools/chromedriver_win32/chromedriver.exe");
@@ -50,4 +50,7 @@ public class ApiConfig {
         chromeDriver.manage().timeouts().scriptTimeout(Duration.ofSeconds(15));
         return chromeDriver;
     }
+
+
+
 }

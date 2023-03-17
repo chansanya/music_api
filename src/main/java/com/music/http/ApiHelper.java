@@ -1,12 +1,12 @@
 package com.music.http;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+
+import com.music.consts.Const;
+import com.music.resolvers.FromResolver;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -22,11 +22,10 @@ import reactor.core.publisher.Mono;
 
 public class ApiHelper {
 
-    public void run(){
 
-        Map<String, Long> map = new HashMap<>(3);
-        map.put("timestamp",System.currentTimeMillis());
+    public static <T> T getApi(String baseurl,Class<T> t){
 
+        String cookieStr = ";=";
         WebClient webClient = WebClient.builder()
                 .defaultHeaders(i->{
                     i.add("Access-Control-Allow-Origin", "https://y.qq.com");
@@ -36,37 +35,27 @@ public class ApiHelper {
                 })
                 .defaultStatusHandler(HttpStatusCode::isError,resp->{
                     log.info("异常返回:{}",resp);
-
-                     return Mono.create(i->{
-                         log.info("异常返Mono回:{}",i);
-                     });
+                    return Mono.create(i->{
+                        log.info("异常返Mono回:{}",i);
+                    });
                 })
-                .defaultUriVariables(map)
-                .baseUrl("http://localhost:3000")
+                .defaultCookie("_qpsvr_localtk","0.9005662506546561")
+                .defaultCookie("ptui_loginuin","984038622")
+                .defaultCookie("_uin","984038622")
+                .defaultCookie("login_type","1")
+                .defaultCookie("RK","qdu8bWlsXf")
+                .defaultCookie("ptcz","7fef7ed79c1fd780284d8c587a92327e195a5684d00902af3452b08e805c47e2")
+                .baseUrl(baseurl)
+                .defaultHeader("origin", Const.HEADER_REFERER)
+                .defaultHeader("Referer", Const.HEADER_ORIGIN)
                 .build();
 
-//        timestamp
         HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory
                 .builder(WebClientAdapter.forClient(webClient))
+                .customArgumentResolver(new FromResolver())
                 .build();
 
-        ApiLogin client = httpServiceProxyFactory.createClient(ApiLogin.class);
-
-
-        String key = client.key();
-        log.info("接口返回值:{}",key);
-        System.out.println(key);
-
-
-        String check = client.check("8744bb6c-5473-4227-ac70-9e80f50a3f89");
-        log.info("接口返回值:{}",check);
-
-        String qrcode = client.create("8744bb6c-5473-4227-ac70-9e80f50a3f89");
-        log.info("接口返回值:{}",qrcode);
-    }
-
-    public static void main(String[] args) {
-        new ApiHelper().run();
+        return  httpServiceProxyFactory.createClient(t);
     }
 
 }
